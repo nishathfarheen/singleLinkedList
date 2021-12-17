@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+        int data;
+        struct node *next;
+}*newnode,*temp;
+struct node* head=NULL;
+struct node* tail=NULL;
+void create()
+{
+     int value;
+     int c;
+        do
+        {
+                newnode=(struct node*)malloc(sizeof(struct node));
+                printf("enter value");
+                scanf("%d",&value);
+                newnode->data=value;
+                newnode->next=NULL;
+                if(head==NULL)
+                {
+                        head=newnode;
+                        tail=newnode;
+                }
+               
+                else
+                {
+                        tail->next=newnode;
+                        tail=newnode;
+        }
+                printf("enter 1 to continue and 0 to exit");
+                scanf("%d",&c);
+        }while(c==1);
+
+}
+void display()
+{
+        temp=head;
+        while(temp!=NULL)
+        {
+                printf("%d\n",temp->data);
+                temp=temp->next;
+        }
+}
+void insert_beg()
+{
+temp=head;
+int values;
+newnode=(struct node*)malloc(sizeof(struct node)) ;
+printf("enter value to insert at beginning:");
+scanf("%d",&values);
+newnode->data=values;
+newnode->next=head;
+head=newnode;
+}
+void insert_end()
+{
+int values;
+newnode=(struct node*) malloc(sizeof(struct node)) ;
+printf("enter value to insert at ending");
+scanf("%d",&values);
+newnode->data=values;
+tail->next=newnode;
+tail=newnode;
+}
+void insert_pos()
+{
+temp=head;
+int values, pos, i;
+newnode=(struct node*) malloc(sizeof(struct node)) ;
+printf("enter value to insert at position");
+scanf("%d",&values);
+printf("enter position");
+scanf("%d",&pos);
+for(i=1;i<pos-1;i++)
+{
+temp=temp->next;
+}
+newnode->data=values;
+newnode->next=temp->next;
+temp->next=newnode;
+}
+void del_beg()
+{
+temp=head;
+head=temp->next;
+temp->next=NULL;
+}
+void del_end()
+{
+temp=head;
+while(temp->next!=tail)
+{
+temp=temp->next;
+}
+temp->next=NULL;
+tail=temp;
+}
+void del_pos()
+{
+temp=head;
+int pos, i;
+printf("enter position to delete");
+scanf("%d",&pos);
+for(i=0;i<pos-1;i++)
+{
+temp=temp->next;
+}
+temp->next=temp->next->next;
+}
+
+
+
+
+void print_rev()
+{
+int a[50];
+temp=head;
+int i=0,c=0,k=0;
+printf("Reverse");
+while(temp!=NULL)
+{
+a[i]=temp->data;
+temp=temp->next;
+i++;
+}
+c=i;
+for(k=c-1;k>=0;k--)
+{
+printf("%d\n",a[k]);
+}
+}
+void main()
+{
+int c, n;
+create() ;
+printf("enter 2.To display\n3.To insert at begin\n");
+printf("4.To insert at end\n5.To insert at position\n");
+printf("6.To delete at begin\n7.To delete at end\n8.To delete at position\n");
+printf("9.To reverse printing");
+scanf("%d",&c);
+
+switch(c)
+{
+
+case 2:
+display() ;
+break;
+case 3:
+insert_beg() ;
+display() ;
+break;
+case 4:
+insert_end() ;
+display() ;
+break;
+case 5:
+insert_pos() ;
+display() ;
+break;
+case 6:
+del_beg() ;
+display() ;
+break;
+case 7:
+del_end() ;
+display() ;
+break;
+case 8:
+del_pos() ;
+display() ;
+break;
+case 9:
+print_rev() ;
+display() ;
+break;
+}
+}
