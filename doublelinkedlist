@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node* next;
+struct node* pre;
+}*newnode, *temp,*temp1;
+struct node* head=NULL;
+struct node* tail=NULL;
+void create_clist()
+{
+int val;
+int c;
+do
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter value");
+scanf("%d",&val);
+newnode->data=val;
+newnode->next=NULL;
+newnode->pre=NULL;
+if(head==NULL)
+{
+head=newnode;
+tail=newnode;
+}
+else
+{
+tail->next=newnode;
+newnode->pre=tail;
+tail=newnode;
+}
+printf("enter 1 to continue 0 to exit");
+scanf("%d",&c);
+}while(c==1);
+}
+void display()
+{
+temp=head;
+while(temp!=NULL)
+{
+printf("%d\n",temp->data);
+temp=temp->next;
+}
+}
+void insert_beg()
+{
+temp=head;
+int val;
+newnode=(struct node*)malloc(sizeof(struct node)) ;
+printf("enter value to insert at beginning");
+scanf("%d",&val);
+newnode->data=val;
+newnode->pre=NULL;
+newnode->next=head;
+head->pre=newnode;
+head=newnode;
+}
+void insert_end()
+{
+int val;
+newnode=(struct node*)malloc(sizeof(struct node)) ;
+printf("enter value to insert at ending");
+scanf("%d",&val);
+newnode->data=val;
+newnode->next=NULL;
+newnode->pre=tail;
+tail->next=newnode;
+tail=newnode;
+}
+void del_beg()
+{
+temp=head;
+head=head->next;
+temp->next=NULL;
+head->pre=NULL;
+}
+void del_end()
+{
+temp=tail;
+tail=tail->pre;
+tail->next=NULL;
+temp->pre=NULL;
+}
+void del_pos()
+{
+int pos,i;
+temp=head;
+printf("enter position to delete");
+scanf("%d",&pos);
+for(i=1;i<pos-1;i++)
+{
+temp=temp->next;
+}
+temp1=temp->next;
+temp->next=temp1->next;
+temp1->next->pre=temp;
+temp1->pre=NULL;
+temp1->next=NULL;
+}
+void insert_pos()
+{
+int pos, val,i;
+printf("enter value to insert");
+scanf("%d",&val);
+printf("enter position to insert");
+scanf("%d",&pos);
+newnode=(struct node*)malloc(sizeof(struct node)) ;
+temp=head;
+for(i=1;i<pos-1;i++)
+{
+temp=temp->next;
+}
+newnode->data=val;
+newnode->pre=temp;
+newnode->next=temp->next;
+temp->next=newnode;
+temp->next->pre=newnode;
+}
+void print_rev()
+{
+temp=tail;
+while(temp!=NULL)
+{
+printf("%d\n",temp->data);
+temp=temp->pre;
+}
+}
+void main()
+{
+create_clist() ;
+display() ;
+int p, c;
+printf("enter 2.To display\n3.To insert at begin\n");
+printf("4.To insert at end\n5.To insert at position\n");
+printf("6.To delete at begin\n7.To delete at end\n8.To delete at position\n");
+printf("9.To reverse printing");
+scanf("%d",&c);
+
+switch(c)
+{
+
+case 2:
+display() ;
+break;
+case 3:
+insert_beg() ;
+display() ;
+break;
+case 4:
+insert_end() ;
+display() ;
+break;
+case 5:
+insert_pos() ;
+display() ;
+break;
+case 6:
+del_beg() ;
+display() ;
+break;
+case 7:
+del_end() ;
+display() ;
+break;
+case 8:
+del_pos() ;
+display() ;
+break;
+case 9:
+print_rev() ;
+break;
+}
+}
